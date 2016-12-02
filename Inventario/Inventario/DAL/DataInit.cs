@@ -14,7 +14,7 @@ namespace Inventario.DAL
             var usuario = new Usuario
             {
                 Nome = "Administrador",
-                Email = "admin@inventorio.local,
+                Email = "admin@inventorio.local",
                 Senha = "4dministrador=1nventario"
             };
 
