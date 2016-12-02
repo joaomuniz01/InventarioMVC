@@ -1,51 +1,37 @@
 ﻿@model IEnumerable<Inventario.Models.Ativo>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Ativos";
 }
 
-<h2>Index</h2>
+<h2>Ativos</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Registrar", "Create")
 </p>
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Usuario.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Descricao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Local)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Tipo)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Local)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Tipo)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
-
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Usuario.Nome)</th>
+            <th>@Html.DisplayNameFor(model => model.Descricao)</th>
+            <th>@Html.DisplayNameFor(model => model.Local)</th>
+            <th>@Html.DisplayNameFor(model => model.Tipo)</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody data-bind="foreach: ativos">
+        <tr>
+            <td data-bind="text: Descricao"></td>
+            <td data-bind="text: Local"></td>
+            <td data-bind="text: Tipo"></td>
+            <td>
+                <a data-bind="attr: { href: '@Url.Action("Details")/' + Id }"
+                   class="btn btn-info">Detalhes</a>
+                <a data-bind="attr: { href: '@Url.Action("Edit")/' + Id }"
+                   class="btn btn-primary">Editar</a>
+                <a data-bind="attr: { href: '@Url.Action("Delete")/' + Id }"
+                   class="btn btn-danger">Apagar</a>
+            </td>
+        </tr>
+    </tbody>
 </table>
