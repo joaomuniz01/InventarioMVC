@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Inventario.DAL;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -16,6 +18,14 @@ namespace Inventario
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            var dbContext = new AtivoContext();
+            Database.SetInitializer(new DataInit());
+            dbContext.Database.Initialize(true);
+        }
+
+        protected void Session_start(object sender, EventArgs e)
+        {
+            HttpContext.Current.Session.Add("__MyAppSession", string.Empty);
         }
     }
 }
