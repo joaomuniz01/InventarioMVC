@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Dynamic;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Inventario.DAL;
 using Inventario.Models;
+using System.Web.ModelBinding;
 
 namespace Inventario.Controllers
 {
@@ -16,9 +18,11 @@ namespace Inventario.Controllers
         private AtivoContext db = new AtivoContext();
 
         // GET: Usuarios
-        public ActionResult Index()
+        public ActionResult Index([Form] QueryOptions queryOptions)
         {
-            return View(db.Usuarios.ToList());
+            var usuarios = db.Usuarios.OrderBy(queryOptions.Sort);
+            ViewBag.QueryOptions = queryOptions;
+            return View(usuarios.ToList());
         }
 
         // GET: Usuarios/Details/5

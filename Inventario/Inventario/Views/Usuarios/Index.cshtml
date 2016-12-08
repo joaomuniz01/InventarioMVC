@@ -1,7 +1,9 @@
-﻿@model IEnumerable<Inventario.Models.Usuario>
+﻿@using Inventario.Models;
+@model IEnumerable<Usuario>
 
 @{
     ViewBag.Title = "Usuários";
+    var queryOptions = (QueryOptions)ViewBag.QueryOptions;
 }
 
 <h2>Usuários</h2>
@@ -12,8 +14,8 @@
 <table class="table table-bordered table-striped">
     <thead>
         <tr>
-            <th>@Html.DisplayNameFor(model => model.Nome)</th>
-            <th>@Html.DisplayNameFor(model => model.Email)</th>
+            <th>@Html.BuildSortableLink("Nome", "Index", "Nome", queryOptions)</th>
+            <th>@Html.BuildSortableLink("Email", "Index", "Email", queryOptions)</th>
             <th>Ações</th>
         </tr>
     </thead>
@@ -41,7 +43,7 @@
             self.usuarios = usuarios;
         };
 
-        var viewModel = new ViewModel(@Html.HtmlConverterToJson(Model));
+        var viewModel = new ViewModel(@Html.HtmlConvertToJson(Model));
         ko.applyBindings(viewModel);
     </script>
 }
